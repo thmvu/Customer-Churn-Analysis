@@ -1,0 +1,15 @@
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+missingno
+scikit-learn
+xgboost
+lightgbm
+imbalanced-learn
+joblib
+pytest
+jupyter
+notebook
+pyyaml

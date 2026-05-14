@@ -1,0 +1,98 @@
+=== logistic_regression ===
+              precision    recall  f1-score   support
+
+           0       0.88      0.74      0.81      1035
+           1       0.50      0.72      0.59       374
+
+    accuracy                           0.74      1409
+   macro avg       0.69      0.73      0.70      1409
+weighted avg       0.78      0.74      0.75      1409
+
+
+=== decision_tree ===
+              precision    recall  f1-score   support
+
+           0       0.85      0.80      0.83      1035
+           1       0.53      0.62      0.57       374
+
+    accuracy                           0.75      1409
+   macro avg       0.69      0.71      0.70      1409
+weighted avg       0.77      0.75      0.76      1409
+
+
+=== random_forest ===
+              precision    recall  f1-score   support
+
+           0       0.87      0.80      0.83      1035
+           1       0.55      0.67      0.60       374
+
+    accuracy                           0.77      1409
+   macro avg       0.71      0.73      0.72      1409
+weighted avg       0.78      0.77      0.77      1409
+
+
+=== gradient_boosting ===
+              precision    recall  f1-score   support
+
+           0       0.87      0.78      0.83      1035
+           1       0.53      0.68      0.60       374
+
+    accuracy                           0.76      1409
+   macro avg       0.70      0.73      0.71      1409
+weighted avg       0.78      0.76      0.77      1409
+
+
+=== adaboost ===
+              precision    recall  f1-score   support
+
+           0       0.89      0.75      0.81      1035
+           1       0.52      0.74      0.61       374
+
+    accuracy                           0.75      1409
+   macro avg       0.70      0.75      0.71      1409
+weighted avg       0.79      0.75      0.76      1409
+
+
+=== xgboost ===
+              precision    recall  f1-score   support
+
+           0       0.87      0.80      0.83      1035
+           1       0.54      0.67      0.60       374
+
+    accuracy                           0.76      1409
+   macro avg       0.71      0.73      0.72      1409
+weighted avg       0.78      0.76      0.77      1409
+
+
+=== lightgbm ===
+              precision    recall  f1-score   support
+
+           0       0.86      0.83      0.84      1035
+           1       0.57      0.64      0.60       374
+
+    accuracy                           0.78      1409
+   macro avg       0.72      0.73      0.72      1409
+weighted avg       0.78      0.78      0.78      1409
+
+
+=== notebook_voting_ensemble ===
+              precision    recall  f1-score   support
+
+           0       0.88      0.76      0.82      1035
+           1       0.52      0.71      0.60       374
+
+    accuracy                           0.75      1409
+   macro avg       0.70      0.73      0.71      1409
+weighted avg       0.78      0.75      0.76      1409
+
+
+=== teacher_voting_ensemble ===
+              precision    recall  f1-score   support
+
+           0       0.87      0.80      0.84      1035
+           1       0.55      0.67      0.60       374
+
+    accuracy                           0.77      1409
+   macro avg       0.71      0.74      0.72      1409
+weighted avg       0.79      0.77      0.77      1409
+
