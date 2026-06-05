@@ -1,0 +1,2 @@
+best_model,feature_strategy,accuracy,precision,recall,f1,roc_auc,model_path
+xgboost,selected_features,0.7721788502484032,0.5565031982942431,0.6978609625668449,0.6192170818505338,0.8335942545661216,C:\vscode\hoctap\Customer-Churn-Analysis\models\trained_models\best_model.pkl

@@ -1,23 +1,38 @@
-# Notebook roadmap
+# Notebook roadmap theo 7 bước giảng viên
 
-Mở notebook theo đúng thứ tự này:
+Chạy notebook theo đúng thứ tự này để khớp với flow bài tập lớn:
 
-1. `01_data_understanding_eda.ipynb`
-   - Hiểu dữ liệu
-   - Vẽ các biểu đồ chính
-   - Rút insight ban đầu
+1. `01_data_collection.ipynb`
+   - Đọc dataset gốc
+   - Xem shape, columns, sample rows
+   - Giải thích nguồn và biến mục tiêu `Churn`
 
-2. `02_preprocessing_pipeline.ipynb`
-   - Giải thích vì sao phải làm sạch dữ liệu
-   - Encode, split, scale, SMOTENC
+2. `02_data_cleaning_preprocessing.ipynb`
+   - Xử lý `TotalCharges`
+   - Bỏ `customerID`
+   - Encode, split train/test, SMOTENC, StandardScaler
 
-3. `03_model_training_comparison.ipynb`
-   - Train nhiều model
+3. `03_eda_analysis.ipynb`
+   - Vẽ bar chart, pie chart, histogram, boxplot, heatmap
+   - Rút insight từ `Contract`, `tenure`, `MonthlyCharges`, `TechSupport`, `OnlineSecurity`
+
+4. `04_model_training.ipynb`
+   - Train các model với full features
+   - Logistic Regression, Decision Tree, Random Forest, boosting models, Voting Ensemble
+
+5. `05_feature_selection_optimization.ipynb`
+   - Random Forest feature importance
+   - Mutual Information
+   - SelectKBest
+   - So sánh full features vs selected features
+
+6. `06_model_evaluation_comparison.ipynb`
    - So sánh accuracy, precision, recall, f1, roc_auc
+   - Confusion matrix, ROC curve, feature importance
 
-4. `04_model_evaluation_and_interpretation.ipynb`
-   - Chọn model tốt nhất
-   - Vẽ confusion matrix, ROC curve, feature importance
-   - Chuẩn bị nội dung để nói trong báo cáo và slide
+7. `07_result_communication.ipynb`
+   - Tổng hợp insight
+   - Gợi ý nội dung slide/report
+   - Kết luận và hướng phát triển
 
-Bạn nên chạy theo thứ tự từ 1 đến 4 để nắm được toàn bộ flow của project.
+Các notebook cũ đã được chuyển vào `notebooks/legacy/` để giữ lại lịch sử làm bài.

@@ -1,15 +1,27 @@
-pandas
+# Core data analysis
 numpy
+pandas
+pyyaml
+
+# Visualization
 matplotlib
 seaborn
 plotly
 missingno
+
+# Machine learning
 scikit-learn
+imbalanced-learn
 xgboost
 lightgbm
-imbalanced-learn
 joblib
-pytest
+
+# Notebook environment
 jupyter
 notebook
-pyyaml
+ipykernel
+ipython
+nbformat
+
+# Testing
+pytest

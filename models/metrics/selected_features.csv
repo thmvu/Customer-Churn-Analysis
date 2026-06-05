@@ -1,0 +1,13 @@
+feature
+tenure
+InternetService
+OnlineSecurity
+OnlineBackup
+DeviceProtection
+TechSupport
+StreamingTV
+Contract
+PaperlessBilling
+PaymentMethod
+MonthlyCharges
+TotalCharges
