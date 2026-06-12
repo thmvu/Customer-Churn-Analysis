@@ -159,3 +159,40 @@ def preprocess_pipeline(df: pd.DataFrame, config: dict) -> PreprocessBundle:
         encoders=encoders,
         scaler=scaler,
     )
+
+
+def transform_new_customers(customers: pd.DataFrame, bundle: PreprocessBundle) -> pd.DataFrame:
+    """Apply the fitted preprocessing objects to new customer rows."""
+    transformed = customers.copy()
+
+    for column in transformed.select_dtypes(include="object").columns:
+        transformed[column] = transformed[column].astype(str).str.strip()
+
+    if "customerID" in transformed.columns:
+        transformed = transformed.drop(columns=["customerID"])
+
+    if "TotalCharges" in transformed.columns:
+        transformed["TotalCharges"] = pd.to_numeric(transformed["TotalCharges"], errors="coerce")
+        fill_value = bundle.cleaned_df["TotalCharges"].median()
+        transformed["TotalCharges"] = transformed["TotalCharges"].fillna(fill_value)
+
+    required_columns = bundle.numeric_columns + bundle.categorical_columns
+    missing_columns = [column for column in required_columns if column not in transformed.columns]
+    if missing_columns:
+        raise KeyError(f"Missing required customer columns: {missing_columns}")
+
+    for column in bundle.categorical_columns:
+        encoder = bundle.encoders[column]
+        unknown_values = sorted(set(transformed[column].astype(str)) - set(encoder.classes_))
+        if unknown_values:
+            raise ValueError(
+                f"Column '{column}' has unseen categories {unknown_values}. "
+                f"Known categories: {encoder.classes_.tolist()}"
+            )
+        transformed[column] = encoder.transform(transformed[column].astype(str))
+
+    if bundle.numeric_columns:
+        transformed = transformed.astype({column: float for column in bundle.numeric_columns})
+        transformed.loc[:, bundle.numeric_columns] = bundle.scaler.transform(transformed[bundle.numeric_columns])
+
+    return transformed.loc[:, bundle.feature_names]

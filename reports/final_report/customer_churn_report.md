@@ -1,59 +1,85 @@
-# Báo cáo chi tiết dự án Customer Churn Prediction
+# Báo cáo bài tập lớn: Phân tích và dự đoán khách hàng rời bỏ dịch vụ viễn thông
 
-## 1. Giới thiệu đề tài
+## 1. Thông tin đề tài
 
 ### 1.1. Tên đề tài
 
-Phân tích và dự đoán khả năng khách hàng rời bỏ dịch vụ viễn thông bằng Machine Learning.
+**Phân tích và dự đoán khả năng khách hàng rời bỏ dịch vụ viễn thông bằng Machine Learning.**
 
-### 1.2. Bối cảnh bài toán
+Trong báo cáo này, hành vi khách hàng rời bỏ dịch vụ được gọi là **Customer Churn**. Đây là bài toán dự đoán xem một khách hàng có khả năng tiếp tục sử dụng dịch vụ hay sẽ ngừng sử dụng trong tương lai.
 
-Trong lĩnh vực viễn thông, việc giữ chân khách hàng cũ thường rẻ hơn rất nhiều so với việc tìm khách hàng mới. Vì vậy, nếu doanh nghiệp có thể dự đoán sớm khách hàng nào có nguy cơ rời bỏ dịch vụ, họ có thể:
+### 1.2. Lý do chọn đề tài
 
-- đưa ra chương trình khuyến mãi phù hợp,
-- cải thiện dịch vụ hỗ trợ,
-- điều chỉnh chính sách hợp đồng,
-- và tối ưu chi phí chăm sóc khách hàng.
+Trong lĩnh vực viễn thông, việc giữ chân khách hàng cũ thường quan trọng và tiết kiệm chi phí hơn so với việc tìm kiếm khách hàng mới. Nếu doanh nghiệp phát hiện sớm nhóm khách hàng có nguy cơ rời bỏ, doanh nghiệp có thể chủ động đưa ra các chính sách giữ chân như ưu đãi, chăm sóc cá nhân hóa, cải thiện dịch vụ hỗ trợ hoặc điều chỉnh gói cước.
 
-Từ đó, bài toán churn prediction có ý nghĩa thực tế rất rõ ràng: **dự đoán khách hàng nào có khả năng rời bỏ dịch vụ để doanh nghiệp can thiệp kịp thời**.
+Đề tài này được chọn vì có đầy đủ các yếu tố phù hợp với một bài toán phân tích dữ liệu và học máy:
 
-### 1.3. Mục tiêu nghiên cứu
+- Dữ liệu thực tế, dễ hiểu và có ý nghĩa kinh doanh rõ ràng.
+- Có bước làm sạch dữ liệu, xử lý dữ liệu thiếu và chuyển đổi kiểu dữ liệu.
+- Có phân tích khám phá dữ liệu bằng biểu đồ.
+- Có bài toán Machine Learning dạng phân loại nhị phân.
+- Có xử lý mất cân bằng dữ liệu bằng SMOTENC.
+- Có so sánh nhiều mô hình khác nhau.
+- Có đánh giá mô hình bằng nhiều chỉ số như Accuracy, Precision, Recall, F1-score và ROC-AUC.
+- Có thể rút ra insight thực tế để hỗ trợ quyết định kinh doanh.
 
-Dự án này hướng đến 4 mục tiêu chính:
+### 1.3. Mục tiêu đề tài
 
-1. Hiểu cấu trúc và đặc điểm của dữ liệu khách hàng.
-2. Xác định các yếu tố có liên quan mạnh đến hành vi rời bỏ dịch vụ.
-3. Xây dựng và so sánh nhiều mô hình Machine Learning để dự đoán churn.
-4. Chọn mô hình phù hợp nhất và giải thích kết quả theo góc nhìn nghiệp vụ.
+Đề tài hướng đến các mục tiêu chính sau:
 
-## 2. Mô tả dữ liệu
+1. Thu thập và tìm hiểu bộ dữ liệu Telco Customer Churn.
+2. Làm sạch và tiền xử lý dữ liệu để đưa về dạng phù hợp cho mô hình học máy.
+3. Phân tích dữ liệu để tìm các yếu tố liên quan đến khả năng khách hàng rời bỏ dịch vụ.
+4. Huấn luyện nhiều mô hình phân loại để dự đoán churn.
+5. Thực hiện lựa chọn đặc trưng để kiểm tra feature nào quan trọng.
+6. Đánh giá, so sánh mô hình và chọn mô hình tốt nhất.
+7. Trình bày kết quả, kết luận và đề xuất hướng ứng dụng thực tế.
 
-### 2.1. Bộ dữ liệu sử dụng
+## 2. Dữ liệu sử dụng
 
-Bộ dữ liệu được sử dụng là **Telco Customer Churn**, trong đó:
+### 2.1. Nguồn dữ liệu
 
-- mỗi dòng biểu diễn một khách hàng,
-- mỗi cột biểu diễn một đặc điểm hoặc hành vi của khách hàng,
-- cột mục tiêu là `Churn`.
+Bộ dữ liệu được sử dụng là **Telco Customer Churn Dataset**, thường được dùng trong các bài toán dự đoán khách hàng rời bỏ dịch vụ. Trong project, dữ liệu gốc được lưu tại:
 
-### 2.2. Ý nghĩa các nhóm cột chính
+```text
+data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
 
-Các cột trong dữ liệu có thể chia thành các nhóm sau:
+Mỗi dòng dữ liệu biểu diễn một khách hàng. Mỗi cột biểu diễn một đặc điểm của khách hàng như thông tin cá nhân, loại dịch vụ đang dùng, loại hợp đồng, phương thức thanh toán và chi phí.
 
-#### Nhóm thông tin cá nhân
+### 2.2. Biến mục tiêu
+
+Biến mục tiêu của bài toán là:
+
+```text
+Churn
+```
+
+Ý nghĩa:
+
+- `Churn = Yes`: khách hàng đã rời bỏ dịch vụ.
+- `Churn = No`: khách hàng vẫn tiếp tục sử dụng dịch vụ.
+
+Đây là bài toán **binary classification**, tức là phân loại nhị phân với hai lớp đầu ra.
+
+### 2.3. Các nhóm thuộc tính chính
+
+Các cột dữ liệu được chia thành một số nhóm chính:
+
+**Thông tin cá nhân**
 
 - `gender`
 - `SeniorCitizen`
 - `Partner`
 - `Dependents`
 
-#### Nhóm thời gian và mức phí
+**Thông tin thời gian và chi phí**
 
 - `tenure`
 - `MonthlyCharges`
 - `TotalCharges`
 
-#### Nhóm dịch vụ khách hàng đang dùng
+**Thông tin dịch vụ**
 
 - `PhoneService`
 - `MultipleLines`
@@ -65,733 +91,612 @@ Các cột trong dữ liệu có thể chia thành các nhóm sau:
 - `StreamingTV`
 - `StreamingMovies`
 
-#### Nhóm hành vi thanh toán và hợp đồng
+**Thông tin hợp đồng và thanh toán**
 
 - `Contract`
 - `PaperlessBilling`
 - `PaymentMethod`
 
-#### Biến mục tiêu
-
-- `Churn`
-
-### 2.3. Cột không dùng để train
+**Cột không dùng để train**
 
 - `customerID`
 
-Lý do:
+`customerID` chỉ là mã định danh khách hàng, không mang ý nghĩa dự đoán nên được loại bỏ trong quá trình tiền xử lý.
 
-- đây chỉ là mã định danh,
-- không mang giá trị dự đoán,
-- giữ lại chỉ làm tăng nhiễu cho mô hình.
+## 3. Cấu trúc project
 
-## 3. Luồng hoạt động tổng thể của project
+Project được tổ chức theo hướng rõ ràng, tách riêng dữ liệu, notebook, mã nguồn, mô hình và báo cáo:
 
-Toàn bộ project được tổ chức theo flow như sau:
+```text
+Customer-Churn-Analysis/
+├── configs/
+├── data/
+├── models/
+├── notebooks/
+├── reports/
+├── src/
+├── tests/
+├── main.py
+├── README.md
+└── requirements.txt
+```
 
-1. Đọc dữ liệu từ file CSV.
-2. Làm sạch dữ liệu.
-3. Phân tích khám phá dữ liệu bằng biểu đồ.
-4. Mã hóa dữ liệu để mô hình có thể học được.
-5. Chia dữ liệu thành train/test.
-6. Cân bằng dữ liệu bằng `SMOTENC`.
-7. Chuẩn hóa các biến số.
-8. Huấn luyện nhiều mô hình.
-9. So sánh mô hình theo nhiều chỉ số.
-10. Chọn mô hình tốt nhất.
-11. Phân tích confusion matrix, ROC curve, feature importance.
-12. Rút ra kết luận và insight nghiệp vụ.
+Ý nghĩa các thư mục:
 
-Nói ngắn gọn hơn, dự án đi theo chuỗi:
+- `configs/`: chứa file cấu hình `config.yaml`.
+- `data/raw/`: chứa dữ liệu gốc.
+- `data/processed/`: chứa dữ liệu sau xử lý.
+- `src/`: chứa code chính của pipeline.
+- `notebooks/`: chứa notebook trình bày từng bước theo yêu cầu giảng viên.
+- `models/trained_models/`: lưu mô hình đã huấn luyện.
+- `models/metrics/`: lưu kết quả đánh giá mô hình.
+- `reports/figures/`: lưu biểu đồ.
+- `reports/final_report/`: lưu báo cáo cuối cùng.
 
-**Dữ liệu thô -> làm sạch -> EDA -> chuẩn bị dữ liệu -> train model -> đánh giá -> giải thích**
+## 4. Quy trình thực hiện theo 7 bước
 
-## 4. Cấu trúc project và vai trò của từng notebook
+Project được chia thành 7 notebook tương ứng với 7 bước trong hướng dẫn làm bài tập lớn.
 
-### 4.1. Cấu trúc thư mục
+### 4.1. Notebook 01: Thu thập dữ liệu
 
-Project được chia thành các thư mục chính:
+File:
 
-- `data/`: dữ liệu gốc và dữ liệu đã xử lý
-- `notebooks/`: nơi chạy các notebook phân tích
-- `src/`: code chính của pipeline
-- `models/`: lưu kết quả và model đã train
-- `reports/`: lưu biểu đồ và báo cáo cuối cùng
-- `configs/`: file cấu hình
+```text
+notebooks/01_data_collection.ipynb
+```
 
-### 4.2. Vai trò của từng notebook
+Mục tiêu:
 
-#### `01_data_understanding_eda.ipynb`
+- Đọc dữ liệu từ file CSV.
+- Kiểm tra kích thước dữ liệu.
+- Xem danh sách cột.
+- Xem một số dòng dữ liệu mẫu.
+- Xác định cột mục tiêu `Churn`.
 
-Dùng để:
+Các thao tác chính:
 
-- hiểu dữ liệu,
-- kiểm tra phân bố churn,
-- phân tích các yếu tố liên quan đến churn bằng nhiều biểu đồ cột, tròn, histogram, boxplot.
+```python
+df_raw = load_dataset(PROJECT_ROOT / config["paths"]["raw_data"])
+df_raw.shape
+df_raw.head()
+```
 
-#### `02_preprocessing_pipeline.ipynb`
+Bước này giúp xác nhận dữ liệu đã được tải đúng và hiểu sơ bộ cấu trúc dữ liệu trước khi xử lý.
 
-Dùng để:
+### 4.2. Notebook 02: Làm sạch và tiền xử lý dữ liệu
 
-- giải thích rõ phần tiền xử lý,
-- xử lý `TotalCharges`,
-- bỏ `customerID`,
-- encode dữ liệu,
-- cân bằng dữ liệu bằng `SMOTENC`,
-- scale các biến số.
+File:
 
-#### `03_model_training_comparison.ipynb`
+```text
+notebooks/02_data_cleaning_preprocessing.ipynb
+```
 
-Dùng để:
+Mục tiêu:
 
-- train nhiều mô hình,
-- so sánh kết quả bằng biểu đồ cột,
-- xem mô hình nào mạnh hơn theo từng metric.
+- Xử lý lỗi kiểu dữ liệu.
+- Xử lý giá trị thiếu.
+- Loại bỏ cột không cần thiết.
+- Mã hóa dữ liệu phân loại.
+- Chia tập train/test.
+- Cân bằng dữ liệu bằng SMOTENC.
+- Chuẩn hóa dữ liệu số bằng StandardScaler.
 
-#### `04_model_evaluation_and_interpretation.ipynb`
+#### Xử lý `TotalCharges`
 
-Dùng để:
+Trong dữ liệu gốc, `TotalCharges` có thể chứa khoảng trắng hoặc giá trị không chuyển được sang số. Vì vậy, cột này được xử lý bằng:
 
-- đánh giá sâu mô hình tốt nhất,
-- xem confusion matrix,
-- xem ROC curve,
-- xem feature importance,
-- rút ra kết luận cuối cùng.
+```python
+pd.to_numeric(df["TotalCharges"], errors="coerce")
+```
 
-## 5. Phân tích khám phá dữ liệu (EDA)
+Các giá trị lỗi được chuyển thành `NaN`, sau đó điền bằng median. Median được chọn vì ít bị ảnh hưởng bởi ngoại lệ hơn mean.
 
-Phần EDA rất quan trọng vì nó giúp hiểu dữ liệu trước khi train model. Thay vì nhảy ngay vào machine learning, ta cần trả lời:
+#### Loại bỏ `customerID`
 
-- Tỷ lệ churn là bao nhiêu?
-- Nhóm khách hàng nào rời bỏ nhiều hơn?
-- Hợp đồng nào rủi ro cao nhất?
-- Mức phí hàng tháng có liên quan đến churn không?
-- Dịch vụ hỗ trợ có làm giảm churn không?
+`customerID` là mã định danh, không giúp mô hình học được quy luật churn. Vì vậy cột này được loại bỏ để tránh gây nhiễu.
 
-### 5.1. Phân bố churn tổng thể
+#### Encode dữ liệu
 
-Notebook đầu tiên vẽ:
+Các mô hình Machine Learning không xử lý trực tiếp được chuỗi như `Yes`, `No`, `Month-to-month`. Vì vậy, dữ liệu phân loại được chuyển sang dạng số bằng `LabelEncoder`.
 
-- sơ đồ cột cho số lượng `Churn = Yes` và `Churn = No`,
-- sơ đồ tròn để thể hiện tỷ lệ churn tổng thể.
+#### Chia train/test
 
-Ý nghĩa:
+Project sử dụng:
 
-- giúp xác định bài toán có mất cân bằng dữ liệu hay không,
-- cho thấy có đủ dữ liệu churn để học nhưng vẫn có chênh lệch giữa hai lớp.
+```text
+test_size = 0.2
+random_state = 42
+stratify = y
+```
 
-### 5.2. Churn theo giới tính và nhóm khách hàng lớn tuổi
+Trong đó, `stratify = y` giúp giữ tỷ lệ churn ở tập train và test gần giống dữ liệu gốc.
 
-Các biểu đồ cột theo:
+#### Xử lý mất cân bằng bằng SMOTENC
 
-- `gender`
-- `SeniorCitizen`
+Bài toán churn thường bị mất cân bằng vì số khách hàng không churn thường nhiều hơn số khách hàng churn. Nếu không xử lý, mô hình có thể thiên về lớp đông hơn.
 
-giúp kiểm tra xem churn có khác nhau giữa các nhóm khách hàng hay không.
+Project sử dụng `SMOTENC` thay vì SMOTE thường vì dữ liệu có cả biến số và biến phân loại.
 
-Ý nghĩa:
+#### Chuẩn hóa bằng StandardScaler
 
-- nếu nhóm khách hàng cao tuổi churn cao hơn, doanh nghiệp có thể xây gói chăm sóc riêng cho nhóm này.
+Các biến số như `tenure`, `MonthlyCharges`, `TotalCharges` có thang đo khác nhau. StandardScaler đưa các biến số về thang đo chuẩn hơn, giúp các mô hình như Logistic Regression hoạt động ổn định.
 
-### 5.3. Churn theo tình trạng gia đình
+### 4.3. Notebook 03: Khai phá và phân tích dữ liệu
 
-Các biến:
+File:
 
-- `Partner`
-- `Dependents`
+```text
+notebooks/03_eda_analysis.ipynb
+```
 
-giúp phản ánh phần nào sự ổn định của khách hàng.
+Mục tiêu:
 
-Ý nghĩa:
+- Trực quan hóa tỷ lệ churn.
+- Phân tích churn theo từng nhóm khách hàng.
+- Phân tích churn theo hợp đồng, phương thức thanh toán và dịch vụ.
+- Tìm các insight có ý nghĩa nghiệp vụ.
 
-- khách hàng có gia đình hoặc người phụ thuộc có thể có xu hướng gắn bó khác với khách hàng độc lập.
+Các biểu đồ sử dụng:
 
-### 5.4. Churn theo loại hợp đồng
+- Biểu đồ cột phân bố churn.
+- Biểu đồ tròn tỷ lệ churn.
+- Biểu đồ churn theo giới tính.
+- Biểu đồ churn theo loại hợp đồng.
+- Biểu đồ churn theo dịch vụ Internet.
+- Histogram cho `tenure`.
+- Boxplot cho `MonthlyCharges`.
+- Heatmap tương quan.
 
-Đây là một trong những biểu đồ quan trọng nhất.
+Một số insight quan trọng:
 
-Thông thường:
+- Khách hàng dùng hợp đồng `Month-to-month` thường có rủi ro churn cao hơn.
+- Khách hàng có `tenure` thấp thường dễ rời bỏ hơn.
+- `MonthlyCharges` cao có thể liên quan đến khả năng churn.
+- Các dịch vụ hỗ trợ như `TechSupport` và `OnlineSecurity` có liên quan đến khả năng giữ chân khách hàng.
 
-- `Month-to-month` có tỷ lệ churn cao hơn,
-- `One year` và `Two year` ổn định hơn.
+### 4.4. Notebook 04: Huấn luyện mô hình
 
-Ý nghĩa nghiệp vụ:
+File:
 
-- hợp đồng ngắn hạn thường khiến khách hàng rời bỏ dễ hơn,
-- các hợp đồng dài hạn giúp tăng mức độ gắn bó.
+```text
+notebooks/04_model_training.ipynb
+```
 
-### 5.5. Churn theo phương thức thanh toán
+Mục tiêu:
 
-Biểu đồ này giúp xem phương thức thanh toán nào có tỷ lệ churn cao.
+- Huấn luyện nhiều mô hình học máy.
+- So sánh mô hình ở bước đầu.
+- Chuẩn bị kết quả cho bước đánh giá sâu.
 
-Ý nghĩa:
+Các mô hình được sử dụng:
 
-- một số hình thức thanh toán có thể gắn liền với trải nghiệm dịch vụ hoặc hành vi tiêu dùng khác nhau,
-- từ đó doanh nghiệp có thể tối ưu luồng thanh toán.
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+- AdaBoost
+- XGBoost
+- LightGBM
+- Notebook-style Voting Ensemble
+- Teacher-style Voting Ensemble
 
-### 5.6. Churn theo dịch vụ Internet và dịch vụ hỗ trợ
+Hàm chính:
 
-Các biến được phân tích mạnh ở notebook gồm:
+```python
+trained_models, tuning_summary = train_all_models(bundle.X_train, bundle.y_train, config)
+results_df, report_map = evaluate_models(trained_models, bundle.X_test, bundle.y_test)
+```
 
-- `InternetService`
-- `OnlineSecurity`
-- `TechSupport`
+Notebook này giúp chứng minh rằng nhóm không chỉ thử một mô hình mà có so sánh nhiều phương pháp khác nhau.
 
-Ý nghĩa:
+### 4.5. Notebook 05: Lựa chọn feature và tối ưu hóa nhẹ
 
-- khách hàng không có hỗ trợ kỹ thuật hoặc bảo mật trực tuyến thường dễ churn hơn,
-- đây là insight rất tốt để đưa vào phần nhận xét.
+File:
 
-### 5.7. Phân phối các biến số quan trọng
+```text
+notebooks/05_feature_selection_optimization.ipynb
+```
 
-Các biểu đồ được vẽ:
+Mục tiêu:
 
-- histogram của `tenure`,
-- boxplot của `MonthlyCharges`,
-- boxplot của `TotalCharges`.
+- Xác định feature nào quan trọng.
+- Kiểm tra việc dùng ít feature hơn có cải thiện mô hình không.
+- Lưu kết quả feature selection để Notebook 06 sử dụng.
 
-Ý nghĩa:
+Các kỹ thuật được sử dụng:
 
-- khách hàng mới sử dụng dịch vụ thường có churn cao hơn,
-- khách hàng trả phí hàng tháng cao có thể nhạy cảm hơn với việc rời bỏ,
-- `TotalCharges` phản ánh mức độ gắn bó dài hạn.
+**Random Forest Feature Importance**
 
-### 5.8. Churn theo nhóm tenure
+Random Forest có thuộc tính `feature_importances_`, cho biết mỗi feature đóng góp tương đối như thế nào vào quá trình dự đoán.
 
-Việc chia `tenure` thành các khoảng như:
+**Mutual Information**
 
-- `0-12`
-- `13-24`
-- `25-48`
-- `49-72`
+`mutual_info_classif` đo mức độ liên hệ giữa từng feature và biến mục tiêu `Churn`. Feature có điểm cao thường chứa nhiều thông tin hơn cho việc dự đoán.
 
-giúp bài thuyết trình dễ hiểu hơn rất nhiều.
-
-Ý nghĩa:
-
-- thay vì nói bằng số thô, bạn có thể nói theo nhóm khách hàng mới, trung bình, lâu năm.
-
-### 5.9. Kết luận phần EDA
-
-Sau khi chạy notebook EDA, có thể rút ra các ý quan trọng:
-
-- churn tồn tại ở mức đủ lớn để trở thành một bài toán kinh doanh nghiêm túc,
-- `Contract`, `tenure`, `MonthlyCharges`, `PaymentMethod`, `InternetService`, `OnlineSecurity`, `TechSupport` là các biến đáng chú ý,
-- khách hàng hợp đồng ngắn hạn và mức phí cao có xu hướng churn nhiều hơn,
-- các dịch vụ hỗ trợ tốt có thể giúp giảm rủi ro churn.
-
-## 6. Tiền xử lý dữ liệu
-
-Phần preprocessing là bước biến dữ liệu thô thành dữ liệu có thể dùng cho machine learning.
-
-### 6.1. Làm sạch dữ liệu text
-
-Trong code, các cột text được:
-
-- chuyển về dạng string,
-- loại bỏ khoảng trắng đầu và cuối.
-
-Mục đích:
-
-- tránh lỗi do dữ liệu nhập không đồng nhất,
-- giữ dữ liệu ổn định hơn trước khi encode.
-
-### 6.2. Xử lý cột `TotalCharges`
-
-Đây là cột đặc biệt quan trọng.
-
-Vấn đề:
-
-- một số hàng chứa khoảng trắng,
-- nên nếu đọc trực tiếp thì cột này không phải dạng số đúng nghĩa.
-
-Cách xử lý:
-
-- dùng `pd.to_numeric(..., errors='coerce')`,
-- chuyển giá trị lỗi thành `NaN`,
-- điền `median`.
-
-Vì sao dùng median:
-
-- ít bị ảnh hưởng bởi giá trị ngoại lệ,
-- an toàn hơn `mean` trong dữ liệu có độ lệch.
-
-### 6.3. Loại bỏ `customerID`
-
-Lý do:
-
-- không mang thông tin dự đoán,
-- chỉ là chỉ mục nhận diện khách hàng,
-- giữ lại có thể làm mô hình học nhiễu.
-
-### 6.4. Mã hóa dữ liệu phân loại
-
-Các model không học trực tiếp từ text như:
-
-- `Male`
-- `Female`
-- `Yes`
-- `No`
-- `Month-to-month`
-
-Vì vậy, notebook và code dùng `LabelEncoder` để chuyển chúng về số.
-
-Ví dụ:
-
-- `Yes -> 1`
-- `No -> 0`
-
-### 6.5. Tách feature và target
-
-Sau encode:
-
-- `X` là toàn bộ feature
-- `y` là cột `Churn`
-
-Mục tiêu là dự đoán `Churn` từ các biến còn lại.
-
-### 6.6. Chia train/test
+**SelectKBest**
 
 Project dùng:
 
-- `test_size = 0.2`
-- `stratify = y`
+```python
+SelectKBest(score_func=mutual_info_classif, k=12)
+```
 
-Ý nghĩa:
+để chọn 12 feature quan trọng nhất.
 
-- 80 phần trăm dữ liệu để train,
-- 20 phần trăm để test,
-- giữ tỷ lệ churn giữa train và test gần giống nhau.
+Các feature được chọn gồm:
 
-### 6.7. Cân bằng dữ liệu bằng `SMOTENC`
-
-Đây là điểm nâng cấp quan trọng theo hướng của giảng viên.
-
-Vấn đề:
-
-- số lượng khách hàng churn thường ít hơn non-churn,
-- nếu giữ nguyên, model dễ thiên về lớp đông hơn.
-
-Giải pháp:
-
-- dùng `SMOTENC` để tăng số mẫu của lớp thiểu số trong tập train.
-
-Vì sao là `SMOTENC` chứ không phải `SMOTE` thường:
-
-- dataset có cả numeric và categorical,
-- `SMOTENC` phù hợp hơn cho trường hợp có feature phân loại.
-
-### 6.8. Scale các biến số
-
-Các cột số được scale như:
-
-- `SeniorCitizen`
 - `tenure`
-- `MonthlyCharges`
-- `TotalCharges`
-
-Ý nghĩa:
-
-- đưa các cột số về cùng thang đo,
-- giúp các model như Logistic Regression hoạt động ổn định hơn.
-
-### 6.9. Tương quan với `Churn`
-
-Notebook preprocessing còn thêm:
-
-- biểu đồ thanh cho top biến có tương quan với `Churn`,
-- heatmap của các biến được chọn.
-
-Ý nghĩa:
-
-- giúp biết biến nào đang liên quan mạnh nhất đến mục tiêu,
-- hỗ trợ bạn giải thích vì sao các cột này đáng dùng để train.
-
-### 6.10. Kết luận phần preprocessing
-
-Sau bước này:
-
-- dữ liệu sạch hơn,
-- feature đã được encode,
-- tập train đã cân bằng hơn nhờ `SMOTENC`,
-- dữ liệu sẵn sàng cho bước train model.
-
-## 7. Các cột nên dùng để train model
-
-Các cột nên giữ gần như đầy đủ, gồm:
-
-- `gender`
-- `SeniorCitizen`
-- `Partner`
-- `Dependents`
-- `tenure`
-- `PhoneService`
-- `MultipleLines`
 - `InternetService`
 - `OnlineSecurity`
 - `OnlineBackup`
 - `DeviceProtection`
 - `TechSupport`
 - `StreamingTV`
-- `StreamingMovies`
 - `Contract`
 - `PaperlessBilling`
 - `PaymentMethod`
 - `MonthlyCharges`
 - `TotalCharges`
 
-Biến mục tiêu:
+Kết quả so sánh feature:
 
-- `Churn`
+| Model | Feature set | Accuracy | Precision | Recall | F1 | ROC-AUC |
+|---|---|---:|---:|---:|---:|---:|
+| Gradient Boosting | Full features | 0.7573 | 0.5333 | 0.6845 | 0.5995 | 0.8283 |
+| Gradient Boosting | Selected features | 0.7651 | 0.5440 | 0.7112 | 0.6165 | 0.8339 |
+| Logistic Regression | Full features | 0.7367 | 0.5028 | 0.7166 | 0.5910 | 0.8155 |
+| Logistic Regression | Selected features | 0.7402 | 0.5072 | 0.7487 | 0.6048 | 0.8230 |
+| Random Forest | Full features | 0.7658 | 0.5480 | 0.6711 | 0.6034 | 0.8280 |
+| Random Forest | Selected features | 0.7665 | 0.5490 | 0.6738 | 0.6050 | 0.8300 |
 
-Không dùng:
+Nhận xét:
 
-- `customerID`
+- Selected features giúp cải thiện F1-score ở cả ba mô hình được thử.
+- Mức cải thiện lớn nhất nằm ở Gradient Boosting và Logistic Regression.
+- Vì vậy, Notebook 06 có thể sử dụng selected features cho bước đánh giá chính thức.
 
-## 8. Các mô hình sử dụng trong dự án
+### 4.6. Notebook 06: Đánh giá và so sánh mô hình
 
-Project không chỉ train một model mà so sánh nhiều mô hình để chọn ra phương án tốt nhất.
+File:
 
-### 8.1. Logistic Regression
+```text
+notebooks/06_model_evaluation_comparison.ipynb
+```
 
-Đây là model baseline.
+Mục tiêu:
+
+- Đọc kết quả từ Notebook 05.
+- Quyết định dùng full features hay selected features.
+- Huấn luyện và đánh giá toàn bộ mô hình.
+- Chọn mô hình tốt nhất.
+- Lưu mô hình tốt nhất và các kết quả đánh giá.
+
+Notebook 06 có liên kết trực tiếp với Notebook 05. Nếu file `feature_selection_comparison.csv` và `selected_features.csv` tồn tại, Notebook 06 sẽ đọc kết quả này để quyết định chiến lược feature.
+
+Trong lần chạy hiện tại:
+
+```text
+Feature strategy: selected_features
+Best model: xgboost
+```
+
+Kết quả đánh giá mô hình:
+
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| XGBoost | 0.7722 | 0.5565 | 0.6979 | 0.6192 | 0.8336 |
+| Gradient Boosting | 0.7651 | 0.5440 | 0.7112 | 0.6165 | 0.8339 |
+| Notebook Voting Ensemble | 0.7537 | 0.5258 | 0.7353 | 0.6132 | 0.8333 |
+| AdaBoost | 0.7445 | 0.5126 | 0.7620 | 0.6129 | 0.8296 |
+| Teacher Voting Ensemble | 0.7708 | 0.5556 | 0.6818 | 0.6122 | 0.8329 |
+| Random Forest | 0.7686 | 0.5529 | 0.6711 | 0.6063 | 0.8302 |
+| Logistic Regression | 0.7402 | 0.5072 | 0.7487 | 0.6048 | 0.8230 |
+| LightGBM | 0.7708 | 0.5584 | 0.6524 | 0.6017 | 0.8235 |
+| Decision Tree | 0.7388 | 0.5066 | 0.6203 | 0.5577 | 0.7987 |
+
+Mô hình tốt nhất theo F1-score là:
+
+```text
+XGBoost
+```
+
+Các file được lưu sau Notebook 06:
+
+```text
+models/trained_models/best_model.pkl
+models/metrics/model_results.csv
+models/metrics/classification_report.txt
+models/metrics/best_model_summary.csv
+```
+
+### 4.7. Notebook 07: Truyền đạt kết quả
+
+File:
+
+```text
+notebooks/07_result_communication.ipynb
+```
+
+Mục tiêu:
+
+- Đọc lại kết quả đã lưu từ Notebook 06.
+- Tổng hợp mô hình tốt nhất.
+- Tổng hợp insight chính.
+- Chuẩn bị nội dung đưa vào slide và báo cáo.
+
+Notebook 07 không train lại mô hình. Nó chỉ đọc kết quả đã lưu để trình bày phần cuối.
+
+Kết quả tóm tắt:
+
+```text
+Best model: XGBoost
+Feature strategy: selected_features
+Accuracy: 0.7722
+Precision: 0.5565
+Recall: 0.6979
+F1-score: 0.6192
+ROC-AUC: 0.8336
+```
+
+## 5. Giải thích các thuật toán sử dụng
+
+### 5.1. Logistic Regression
+
+Logistic Regression là mô hình tuyến tính dùng cho bài toán phân loại. Mô hình học mối quan hệ giữa các feature và xác suất khách hàng churn.
 
 Ưu điểm:
 
-- đơn giản,
-- nhanh,
-- dễ giải thích.
+- Nhanh.
+- Dễ hiểu.
+- Phù hợp làm baseline.
 
-Nhược điểm:
+Hạn chế:
 
-- có thể không mạnh bằng các model boosting trên dữ liệu bảng.
+- Khó bắt được quan hệ phi tuyến phức tạp.
+- Có thể kém hơn các mô hình cây trên dữ liệu dạng bảng.
 
-### 8.2. Decision Tree
+### 5.2. Decision Tree
 
-Ưu điểm:
+Decision Tree chia dữ liệu theo các điều kiện dạng cây quyết định. Ví dụ mô hình có thể học các quy tắc kiểu:
 
-- dễ hiểu,
-- có thể diễn giải bằng dạng cây.
-
-Nhược điểm:
-
-- dễ overfit nếu không kiểm soát tốt.
-
-### 8.3. Random Forest
-
-Là tập hợp nhiều cây quyết định.
+```text
+Nếu Contract = Month-to-month và tenure thấp thì khả năng churn cao.
+```
 
 Ưu điểm:
 
-- ổn định hơn Decision Tree,
-- thường cho kết quả tốt trên dữ liệu bảng.
+- Dễ giải thích.
+- Trực quan.
 
-### 8.4. Gradient Boosting
+Hạn chế:
+
+- Dễ overfit nếu cây quá sâu.
+
+### 5.3. Random Forest
+
+Random Forest là tập hợp nhiều Decision Tree. Mỗi cây học trên một phần dữ liệu và một phần feature khác nhau, sau đó kết quả được tổng hợp lại.
+
+Ưu điểm:
+
+- Ổn định hơn Decision Tree.
+- Giảm overfitting.
+- Có thể xem feature importance.
+
+### 5.4. Gradient Boosting
+
+Gradient Boosting xây dựng nhiều cây theo thứ tự. Cây sau tập trung sửa lỗi của cây trước.
 
 Ý tưởng:
 
-- cây sau học cách sửa lỗi của cây trước.
+```text
+Mô hình đầu tiên dự đoán chưa tốt.
+Mô hình tiếp theo học phần sai còn lại.
+Lặp lại nhiều lần để giảm lỗi.
+```
 
 Ưu điểm:
 
-- mạnh trên dữ liệu tabular,
-- thường cho kết quả tốt hơn các model cơ bản.
+- Mạnh trên dữ liệu dạng bảng.
+- Thường cho kết quả tốt.
 
-### 8.5. AdaBoost
+### 5.5. AdaBoost
 
-Ý tưởng:
+AdaBoost cũng là mô hình boosting. Nó tăng trọng số cho các mẫu bị dự đoán sai, để mô hình sau chú ý hơn đến những trường hợp khó.
 
-- tăng trọng số cho các mẫu bị dự đoán sai,
-- để mô hình học tập trung hơn vào các trường hợp khó.
+Trong bài toán churn, AdaBoost có recall khá cao, nghĩa là bắt được nhiều khách hàng churn thật.
 
-### 8.6. XGBoost
+### 5.6. XGBoost
 
-Ưu điểm:
-
-- rất mạnh với dữ liệu bảng,
-- hiệu quả cao,
-- thường là một trong các model tốt nhất trong bài toán churn.
-
-### 8.7. LightGBM
+XGBoost là phiên bản boosting mạnh và tối ưu hơn. Nó thường đạt hiệu quả cao trên dữ liệu tabular như bộ Telco Customer Churn.
 
 Ưu điểm:
 
-- huấn luyện nhanh,
-- hiệu quả tốt,
-- phù hợp với bài toán tabular.
+- Hiệu năng tốt.
+- Có cơ chế regularization giúp giảm overfitting.
+- Phù hợp với bài toán phân loại nhị phân.
 
-### 8.8. Notebook-style Voting Ensemble
+Trong project hiện tại, XGBoost là mô hình tốt nhất theo F1-score.
 
-Mô hình này kết hợp:
+### 5.7. LightGBM
 
-- Gradient Boosting
-- Logistic Regression
-- AdaBoost
+LightGBM là mô hình gradient boosting được tối ưu để train nhanh và xử lý dữ liệu lớn hiệu quả.
 
-Mục tiêu:
+Ưu điểm:
 
-- bám theo tinh thần notebook gốc,
-- tận dụng lợi thế của nhiều model cùng lúc.
+- Nhanh.
+- Mạnh trên dữ liệu dạng bảng.
 
-### 8.9. Teacher-style Voting Ensemble
+### 5.8. Voting Ensemble
 
-Mô hình này kết hợp ưu tiên:
+Voting Ensemble kết hợp nhiều mô hình lại để đưa ra dự đoán cuối cùng. Project có hai dạng ensemble:
 
-- Random Forest
-- XGBoost
-- LightGBM
-- Gradient Boosting
+- Notebook-style Voting Ensemble.
+- Teacher-style Voting Ensemble.
 
-Mục tiêu:
+Mục đích là thử cách kết hợp nhiều mô hình mạnh thay vì chỉ phụ thuộc vào một mô hình đơn lẻ.
 
-- gần với định hướng ensemble mạnh của giảng viên,
-- tận dụng các model tabular mạnh trong cùng một hệ.
+## 6. Giải thích các chỉ số đánh giá
 
-## 9. Cách huấn luyện và so sánh mô hình
+### 6.1. Accuracy
 
-Notebook thứ ba sẽ:
+Accuracy là tỷ lệ dự đoán đúng trên toàn bộ tập test.
 
-1. train toàn bộ model,
-2. thu kết quả vào bảng,
-3. vẽ biểu đồ cột so sánh theo:
-   - `accuracy`
-   - `precision`
-   - `recall`
-   - `f1`
-   - `roc_auc`
+Tuy nhiên, với bài toán churn, accuracy không phải chỉ số duy nhất cần quan tâm vì dữ liệu có thể mất cân bằng.
 
-### 9.1. Vì sao không chỉ nhìn Accuracy?
+### 6.2. Precision
 
-Trong bài toán churn:
+Precision trả lời câu hỏi:
 
-- nếu model đoán hầu hết là `No Churn`, accuracy vẫn có thể nhìn đẹp,
-- nhưng model lại không bắt được khách có nguy cơ rời bỏ.
+```text
+Trong số khách hàng mô hình dự đoán là churn, có bao nhiêu người thật sự churn?
+```
 
-Do đó, cần xem thêm:
+Precision cao giúp giảm báo động giả.
 
-- `precision`
-- `recall`
-- `f1-score`
-- `roc_auc`
+### 6.3. Recall
 
-### 9.2. Ý nghĩa từng chỉ số
+Recall trả lời câu hỏi:
 
-#### Accuracy
+```text
+Trong số khách hàng thật sự churn, mô hình phát hiện được bao nhiêu?
+```
 
-Tỷ lệ dự đoán đúng trên toàn bộ tập test.
+Trong bài toán churn, recall rất quan trọng vì doanh nghiệp muốn phát hiện càng nhiều khách hàng có nguy cơ rời bỏ càng tốt.
 
-#### Precision
+### 6.4. F1-score
 
-Trong số các khách hàng bị dự đoán là churn, có bao nhiêu người thực sự churn.
+F1-score là chỉ số cân bằng giữa precision và recall.
 
-#### Recall
+Project chọn F1-score làm chỉ số chính vì bài toán cần cân bằng giữa:
 
-Trong số khách hàng churn thật, mô hình phát hiện được bao nhiêu.
+- phát hiện đúng khách hàng churn,
+- và hạn chế dự đoán sai quá nhiều.
 
-#### F1-score
+### 6.5. ROC-AUC
 
-Là trung bình điều hòa giữa precision và recall.
+ROC-AUC đo khả năng mô hình phân biệt giữa hai lớp churn và non-churn. Giá trị càng gần 1 thì khả năng phân tách càng tốt.
 
-Đây là chỉ số rất quan trọng khi muốn cân bằng giữa:
+Trong project này, các mô hình tốt đạt ROC-AUC khoảng 0.83, cho thấy mô hình có khả năng phân biệt hai nhóm khách hàng tương đối tốt.
 
-- bắt được churn,
-- nhưng không báo động giả quá nhiều.
+## 7. Kết quả và nhận xét
 
-#### ROC-AUC
+### 7.1. Mô hình tốt nhất
 
-Đo khả năng phân tách hai lớp của mô hình.
+Mô hình tốt nhất theo F1-score là:
 
-Giá trị càng gần 1 càng tốt.
+```text
+XGBoost
+```
 
-### 9.3. Kết luận phần so sánh model
+Kết quả:
 
-Sau notebook training, bạn nên chốt:
+```text
+Accuracy  = 0.7722
+Precision = 0.5565
+Recall    = 0.6979
+F1-score  = 0.6192
+ROC-AUC   = 0.8336
+```
 
-- model nào mạnh nhất theo `F1-score`,
-- model nào mạnh theo `ROC-AUC`,
-- ensemble có cải thiện hay không,
-- và vì sao nhóm chọn model cuối cùng.
+### 7.2. Vì sao không chỉ chọn theo Accuracy?
 
-## 10. Đánh giá sâu mô hình tốt nhất
+LightGBM và Teacher Voting Ensemble có accuracy khá cao, nhưng XGBoost có F1-score tốt nhất. Với bài toán churn, F1-score quan trọng hơn accuracy vì nó cân bằng giữa precision và recall.
 
-Notebook thứ tư tập trung vào mô hình tốt nhất.
+Nếu chỉ nhìn accuracy, mô hình có thể dự đoán tốt lớp đông hơn nhưng bỏ sót khách hàng churn. Điều này không phù hợp với mục tiêu kinh doanh.
 
-### 10.1. Classification report
+### 7.3. Ý nghĩa kết quả
 
-Classification report cho biết:
+Kết quả cho thấy mô hình có thể hỗ trợ doanh nghiệp xác định nhóm khách hàng có nguy cơ rời bỏ. Dù F1-score chưa quá cao, ROC-AUC đạt khoảng 0.83 cho thấy mô hình có khả năng phân biệt tốt giữa hai nhóm khách hàng.
 
-- precision
-- recall
-- f1-score
+Trong thực tế, doanh nghiệp có thể dùng mô hình này để:
 
-ở từng lớp.
-
-Ý nghĩa:
-
-- giúp nhìn rõ model xử lý lớp churn tốt đến đâu.
-
-### 10.2. Confusion Matrix
-
-Confusion matrix giúp trả lời:
-
-- model đúng bao nhiêu khách churn,
-- model bỏ sót bao nhiêu khách churn,
-- model nhầm bao nhiêu khách không churn thành churn.
-
-Ý nghĩa nghiệp vụ:
-
-- nếu bỏ sót quá nhiều khách churn, doanh nghiệp sẽ mất cơ hội giữ chân,
-- nếu báo động giả quá nhiều, doanh nghiệp sẽ tốn nguồn lực không cần thiết.
-
-### 10.3. ROC Curve
-
-ROC Curve cho biết:
-
-- mô hình có phân biệt tốt hai lớp hay không,
-- ngưỡng phân loại có đang hợp lý không.
-
-Đi cùng ROC Curve là AUC:
-
-- càng cao càng tốt,
-- thể hiện mô hình có khả năng tách lớp mạnh.
-
-### 10.4. Feature Importance
-
-Đây là phần rất quan trọng trong báo cáo.
-
-Mục tiêu:
-
-- không chỉ biết model đúng hay sai,
-- mà còn biết model đang dựa vào yếu tố nào để dự đoán.
-
-Các biến thường đáng chú ý nhất:
-
-- `Contract`
-- `tenure`
-- `MonthlyCharges`
-- `TotalCharges`
-- `InternetService`
-- `TechSupport`
-- `OnlineSecurity`
-- `PaymentMethod`
-
-### 10.5. Ý nghĩa nghiệp vụ của feature importance
-
-Nếu các biến trên có importance cao, doanh nghiệp có thể:
-
-- thiết kế lại chính sách hợp đồng,
-- hỗ trợ khách hàng mới tốt hơn,
-- đưa gói hỗ trợ kỹ thuật hợp lý,
-- tối ưu trải nghiệm thanh toán,
-- tập trung giữ chân nhóm có rủi ro cao.
-
-## 11. Giải thích code theo cách dễ hiểu
-
-### 11.1. `clean_dataframe(...)`
-
-Hàm này chịu trách nhiệm:
-
-- làm sạch dữ liệu text,
-- xử lý `TotalCharges`,
-- điền giá trị thiếu,
-- loại bỏ `customerID`.
-
-### 11.2. `encode_dataframe(...)`
-
-Hàm này:
-
-- tìm cột numeric,
-- tìm cột categorical,
-- encode các cột phân loại sang dạng số.
-
-### 11.3. `split_scale_balance(...)`
-
-Hàm này:
-
-- chia train/test,
-- cân bằng dữ liệu train bằng `SMOTENC`,
-- scale các cột số.
-
-### 11.4. `preprocess_pipeline(...)`
-
-Đây là hàm gộp:
-
-- clean dữ liệu,
-- encode,
-- split,
-- balance,
-- scale.
-
-Nó trả về một bundle để dùng xuyên suốt các notebook.
-
-### 11.5. `train_all_models(...)`
-
-Hàm này:
-
-- tạo toàn bộ model,
-- train từng model,
-- tạo thêm các ensemble.
-
-### 11.6. `evaluate_models(...)`
-
-Hàm này:
-
-- chạy dự đoán trên tập test,
-- tính metric cho từng model,
-- trả về bảng kết quả để so sánh.
-
-## 12. Cách bạn nên trình bày trước giảng viên
-
-Bạn có thể nói theo đúng luồng sau:
-
-1. Nhóm chọn bài toán churn vì có ý nghĩa thực tế cao.
-2. Nhóm sử dụng bộ dữ liệu Telco Customer Churn.
-3. Nhóm làm sạch dữ liệu, đặc biệt xử lý `TotalCharges` và bỏ `customerID`.
-4. Nhóm phân tích EDA để tìm insight ban đầu.
-5. Nhóm encode dữ liệu, chia train/test và cân bằng dữ liệu bằng `SMOTENC`.
-6. Nhóm huấn luyện nhiều mô hình khác nhau để so sánh khách quan.
-7. Nhóm đánh giá mô hình bằng nhiều metric chứ không chỉ accuracy.
-8. Nhóm chọn mô hình tốt nhất dựa trên F1-score, ROC-AUC và chất lượng tổng thể.
-9. Nhóm giải thích các yếu tố ảnh hưởng mạnh đến churn bằng feature importance.
-10. Từ đó, nhóm rút ra hàm ý nghiệp vụ cho doanh nghiệp.
-
-## 13. Kết luận chung của dự án
-
-Về mặt kỹ thuật, dự án này đầy đủ vì:
-
-- có làm sạch dữ liệu,
-- có EDA,
-- có xử lý mất cân bằng,
-- có chuẩn hóa dữ liệu,
-- có so sánh nhiều mô hình,
-- có ensemble,
-- có đánh giá bằng nhiều metric,
-- có giải thích đặc trưng quan trọng.
-
-Về mặt trình bày, dự án này mạnh vì:
-
-- bài toán thực tế,
-- dữ liệu dễ hiểu,
-- nhiều biểu đồ đẹp,
-- có thể kể thành câu chuyện nghiệp vụ rõ ràng,
-- phù hợp cả phong cách data analysis lẫn machine learning.
-
-## 14. Những ý chốt có thể đưa thẳng vào báo cáo hoặc slide
-
-Bạn có thể dùng các ý sau để kết luận:
-
-- Bài toán churn prediction giúp doanh nghiệp xác định sớm khách hàng có nguy cơ rời bỏ.
-- Phân tích dữ liệu cho thấy hợp đồng, thời gian gắn bó, chi phí hàng tháng và dịch vụ hỗ trợ là những yếu tố quan trọng.
-- Việc làm sạch dữ liệu và cân bằng dữ liệu bằng `SMOTENC` giúp cải thiện chất lượng đầu vào cho mô hình.
-- So sánh nhiều model cho thấy các mô hình boosting và ensemble thường cho hiệu quả tốt hơn model baseline.
-- Mô hình tốt nhất không chỉ được chọn vì accuracy, mà còn vì khả năng cân bằng giữa precision, recall và F1-score.
-- Feature importance giúp nhóm không chỉ dự đoán churn mà còn hiểu tại sao churn xảy ra.
-
-## 15. Bước tiếp theo bạn nên làm
-
-1. Chạy lần lượt 4 notebook.
-2. Chọn 5 đến 7 biểu đồ đẹp nhất để đưa vào slide.
-3. Lấy bảng so sánh model trong notebook thứ 3.
-4. Lấy confusion matrix, ROC curve, feature importance trong notebook thứ 4.
-5. Viết phần kết luận dựa trên insight từ EDA và model tốt nhất.
-6. Khi thuyết trình, bám đúng flow của report này để nói sẽ rất mượt.
+- lọc ra nhóm khách hàng rủi ro cao,
+- ưu tiên chăm sóc khách hàng có nguy cơ churn,
+- thiết kế ưu đãi theo từng nhóm khách hàng,
+- cải thiện dịch vụ hỗ trợ kỹ thuật và bảo mật.
+
+## 8. Các insight nghiệp vụ quan trọng
+
+Từ EDA và feature selection, một số yếu tố quan trọng liên quan đến churn gồm:
+
+- `tenure`: khách hàng mới thường có nguy cơ churn cao hơn.
+- `Contract`: hợp đồng ngắn hạn có rủi ro churn cao hơn hợp đồng dài hạn.
+- `MonthlyCharges`: chi phí hàng tháng cao có thể làm tăng rủi ro churn.
+- `TotalCharges`: phản ánh mức độ gắn bó và tổng chi tiêu của khách hàng.
+- `InternetService`: loại dịch vụ internet có liên quan đến churn.
+- `OnlineSecurity`: khách hàng không dùng bảo mật trực tuyến có thể dễ churn hơn.
+- `TechSupport`: thiếu hỗ trợ kỹ thuật có thể làm tăng khả năng churn.
+- `PaymentMethod`: phương thức thanh toán có liên quan đến hành vi rời bỏ.
+
+Các insight này giúp doanh nghiệp không chỉ dự đoán churn mà còn hiểu nguyên nhân tiềm năng phía sau hành vi churn.
+
+## 9. Hạn chế của project
+
+Project vẫn còn một số hạn chế:
+
+- Chưa tuning sâu toàn bộ mô hình bằng GridSearchCV hoặc RandomizedSearchCV.
+- Chưa dùng các phương pháp giải thích mô hình nâng cao như SHAP hoặc LIME.
+- Dữ liệu không có yếu tố thời gian chi tiết nên không triển khai theo hướng time series.
+- Feature encoding hiện dùng LabelEncoder, có thể nâng cấp bằng OneHotEncoder cho một số mô hình tuyến tính.
+- Mô hình chưa được triển khai thành dashboard hoặc web app.
+
+## 10. Hướng phát triển
+
+Trong tương lai, project có thể mở rộng theo các hướng:
+
+- Tuning sâu XGBoost, LightGBM và Random Forest.
+- Thử thêm RFE hoặc RFECV cho feature selection.
+- Dùng SHAP để giải thích từng dự đoán cụ thể.
+- Xây dựng dashboard trực quan hóa churn risk.
+- Tạo form dự đoán churn cho khách hàng mới.
+- Điều chỉnh threshold để tăng recall nếu doanh nghiệp ưu tiên bắt nhiều khách churn hơn.
+
+## 11. Kết luận
+
+Project đã hoàn thành đầy đủ quy trình phân tích dữ liệu và học máy cho bài toán Customer Churn Prediction:
+
+1. Thu thập dữ liệu.
+2. Làm sạch và tiền xử lý dữ liệu.
+3. Khai phá và phân tích dữ liệu.
+4. Huấn luyện nhiều mô hình học máy.
+5. Lựa chọn feature và kiểm tra tác động của selected features.
+6. Đánh giá và so sánh mô hình.
+7. Truyền đạt kết quả và rút ra insight.
+
+Kết quả tốt nhất hiện tại thuộc về mô hình XGBoost với F1-score khoảng 0.6192 và ROC-AUC khoảng 0.8336. Điều này cho thấy mô hình có khả năng hỗ trợ doanh nghiệp nhận diện khách hàng có nguy cơ rời bỏ dịch vụ.
+
+Về mặt nghiệp vụ, các yếu tố như thời gian gắn bó, loại hợp đồng, phí hàng tháng, dịch vụ hỗ trợ và phương thức thanh toán là những biến quan trọng cần được chú ý khi xây dựng chiến lược giữ chân khách hàng.
+
+## 12. Kịch bản trình bày ngắn gọn trước giảng viên
+
+Khi thuyết trình, có thể trình bày theo luồng sau:
+
+1. Nhóm chọn đề tài churn prediction vì bài toán có ý nghĩa thực tế trong việc giữ chân khách hàng.
+2. Nhóm sử dụng bộ dữ liệu Telco Customer Churn, trong đó biến mục tiêu là `Churn`.
+3. Nhóm làm sạch dữ liệu, xử lý `TotalCharges`, loại bỏ `customerID`, encode dữ liệu phân loại, chia train/test, dùng SMOTENC để xử lý mất cân bằng và dùng StandardScaler cho biến số.
+4. Nhóm thực hiện EDA để phân tích churn theo hợp đồng, tenure, monthly charges, internet service, online security, tech support và payment method.
+5. Nhóm huấn luyện nhiều mô hình như Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, AdaBoost, XGBoost, LightGBM và Voting Ensemble.
+6. Nhóm thực hiện feature selection bằng Random Forest importance, Mutual Information và SelectKBest. Kết quả selected features giúp cải thiện một số mô hình.
+7. Nhóm đánh giá mô hình bằng Accuracy, Precision, Recall, F1-score và ROC-AUC. Mô hình tốt nhất là XGBoost theo F1-score.
+8. Cuối cùng, nhóm rút ra insight nghiệp vụ: khách hàng hợp đồng ngắn hạn, tenure thấp, monthly charges cao hoặc thiếu dịch vụ hỗ trợ có nguy cơ churn cao hơn.
+
+## 13. Tài liệu và file liên quan
+
+Các file chính trong project:
+
+```text
+notebooks/01_data_collection.ipynb
+notebooks/02_data_cleaning_preprocessing.ipynb
+notebooks/03_eda_analysis.ipynb
+notebooks/04_model_training.ipynb
+notebooks/05_feature_selection_optimization.ipynb
+notebooks/06_model_evaluation_comparison.ipynb
+notebooks/07_result_communication.ipynb
+src/data/preprocess.py
+src/models/train.py
+src/models/evaluate.py
+models/trained_models/best_model.pkl
+models/metrics/model_results.csv
+models/metrics/best_model_summary.csv
+reports/figures/
+```
